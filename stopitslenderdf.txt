@@ -1,0 +1,7 @@
+"stopitslenderdf"
+{
+	"base"		"base"
+	"title"		"Stop it Slender"
+	"maps"		"^slender_"
+	"menusystem"	"1"
+}
