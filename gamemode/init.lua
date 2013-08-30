@@ -262,10 +262,11 @@ GM.LastSlender = nil
 function GM:PlayerInitialSpawn( pl )
 
 	if CurTime() - ROUNDTIME <= 2*60 or #player.GetAll() <= 1 then
-		//Dfyyyy Add - Multiple Slendys based on slosts
-		if #player.GetAll() > 1 and #player.GetAll() < 14 and #team.GetPlayers(TEAM_SLENDER) <= 1 and #ents.FindByClass("slendy") <=0 and #team.GetPlayers(TEAM_HUMEN) <=1 then
-			print("One sad, lonely Slendy!!")
+	
+		if #player.GetAll() > 1 and #team.GetPlayers(TEAM_SLENDER) <= 0 and #ents.FindByClass("slendy") <=0 then
+		
 			local slendy = player.GetAll()[math.random(1,#player.GetAll())]
+					
 			if !pl:IsBot() and self.LastSlender ~= pl then
 				pl:SetTeam(TEAM_SLENDER)
 				self.LastSlender = pl
@@ -275,34 +276,12 @@ function GM:PlayerInitialSpawn( pl )
 				pl:SetTeam(TEAM_HUMENS)
 				pl:CollisionRulesChanged()
 			end
-		elseif #player.GetAll() > 14 and #player.GetAll() < 28 and #team.GetPlayers(TEAM_SLENDER) < 2 and #ents.FindByClass("slendy") <=0 then
-			print("Two Slendys!!")
-			local slendy = player.GetAll()[math.random(1,#player.GetAll())]
-			if !pl:IsBot() then // self.LastSlender ~= pl then
-				pl:SetTeam(TEAM_SLENDER)
-				self.LastSlender = pl
-				game.GetWorld():SetDTEntity(2,pl)
-				pl:CollisionRulesChanged()
-			else
-				pl:SetTeam(TEAM_HUMENS)
-				pl:CollisionRulesChanged()
-			end
-		elseif #player.GetAll() >= 28 and #player.GetAll() <= 42 and #team.GetPlayers(TEAM_SLENDER) < 3 and #ents.FindByClass("slendy") <=0 then
-			print("Three Slendys!!")
-			local slendy = player.GetAll()[math.random(1,#player.GetAll())]
-			if !pl:IsBot() then //and self.LastSlender ~= pl then
-				pl:SetTeam(TEAM_SLENDER)
-				self.LastSlender = pl
-				game.GetWorld():SetDTEntity(2,pl)
-				pl:CollisionRulesChanged()
-			else
-				pl:SetTeam(TEAM_HUMENS)
-				pl:CollisionRulesChanged()
-			end	
+			
 		else
 			pl:SetTeam(TEAM_HUMENS)
-			pl:CollisionRulesChanged()
+			pl:CollisionRulesChanged()			
 		end
+		
 	else
 		pl:SetTeam(TEAM_SPECTATOR)
 		pl:CollisionRulesChanged()
@@ -319,7 +298,6 @@ function GM:PlayerInitialSpawn( pl )
 	net.Send(pl)
 	
 	pl:SendLua("FixMotionBlur()")
-	print("players spawn")
 end
 
 function GM:PlayerSpray(pl)
